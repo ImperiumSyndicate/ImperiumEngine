@@ -1,0 +1,30 @@
+{
+  "template": "https://github.com/superlinear-ai/poetry-cookiecutter",
+  "commit": "c655d6f8c25bfaabac2d55e60a0fe209e8b6211b",
+  "checkout": null,
+  "context": {
+    "cookiecutter": {
+      "project_type": "package",
+      "project_name": "ImperiumEngine",
+      "project_description": "add",
+      "project_url": "https://github.com/ImperiumSyndicate/ImperiumEngine",
+      "author_name": "luiz correa (zcorrea357)",
+      "author_email": "zcorrea357@gmail.com",
+      "python_version": "3.13",
+      "development_environment": "strict",
+      "with_conventional_commits": "1",
+      "with_fastapi_api": "0",
+      "with_typer_cli": "0",
+      "continuous_integration": "GitHub",
+      "private_package_repository_name": "",
+      "private_package_repository_url": "",
+      "__docker_image": "python:$PYTHON_VERSION-slim",
+      "__docstring_style": "NumPy",
+      "__project_name_kebab_case": "imperiumengine",
+      "__project_name_snake_case": "imperiumengine",
+      "_template": "https://github.com/superlinear-ai/poetry-cookiecutter",
+      "_commit": "c655d6f8c25bfaabac2d55e60a0fe209e8b6211b"
+    }
+  },
+  "directory": null
+}
