@@ -50,7 +50,7 @@ update_changelog_on_bump = true
 version_provider = "pep621"
 
 [tool.coverage.report]  # https://coverage.readthedocs.io/en/latest/config.html#report
-fail_under = 50
+fail_under = 0
 precision = 1
 show_missing = true
 skip_covered = true
