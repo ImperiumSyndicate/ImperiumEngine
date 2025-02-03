@@ -1,0 +1,144 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DataFrame com ATR Calculado",
+  "description": "Estrutura da resposta da função calculate() da classe ATR. Cada objeto representa uma linha do DataFrame, contendo as colunas 'high', 'low', 'close' e a nova coluna 'ATR'.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "high": {
+        "type": "number",
+        "description": "Preço máximo do período."
+      },
+      "low": {
+        "type": "number",
+        "description": "Preço mínimo do período."
+      },
+      "close": {
+        "type": "number",
+        "description": "Preço de fechamento do período."
+      },
+      "ATR": {
+        "type": "number",
+        "description": "Valor do Average True Range calculado para o período."
+      }
+    },
+    "required": ["high", "low", "close", "ATR"]
+  }
+}
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "BollingerBands Output",
+  "description": "Estrutura da resposta da função calculate() da classe BollingerBands. Cada objeto representa uma linha do DataFrame com a coluna de preço original (padrão 'Close') e as bandas superior e inferior calculadas.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "Close": {
+        "type": "number",
+        "description": "Valor do preço da ação, conforme definido na coluna de preço (padrão 'Close')."
+      },
+      "Upper_Band": {
+        "type": "number",
+        "description": "Banda superior de Bollinger calculada como a média móvel simples (SMA) somada ao produto do desvio padrão e o multiplicador (std_dev)."
+      },
+      "Lower_Band": {
+        "type": "number",
+        "description": "Banda inferior de Bollinger calculada como a média móvel simples (SMA) subtraída do produto do desvio padrão e o multiplicador (std_dev)."
+      }
+    },
+    "required": ["Upper_Band", "Lower_Band"]
+  }
+}
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "EMA Output",
+  "description": "Estrutura da resposta da função calculate() da classe EMA. Cada objeto representa uma linha do DataFrame com a coluna de preço original (por padrão 'Close') e a nova coluna da EMA calculada (por padrão 'EMA_14').",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "Close": {
+        "type": "number",
+        "description": "Valor do preço da ação, conforme definido na coluna de preço (padrão 'Close')."
+      },
+      "EMA_14": {
+        "type": "number",
+        "description": "Valor da Média Móvel Exponencial calculada utilizando um período de 14, gerado pela função calculate()."
+      }
+    },
+    "required": [
+      "EMA_14"
+    ]
+  }
+}
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MACD Output",
+  "description": "Estrutura da resposta da função calculate() da classe MACD. Cada objeto representa uma linha do DataFrame com a coluna de preço original (padrão 'Close') e as colunas 'MACD' e 'MACD_Signal' resultantes dos cálculos.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "Close": {
+        "type": "number",
+        "description": "Valor do preço da ação, conforme definido na coluna de preço (padrão 'Close')."
+      },
+      "MACD": {
+        "type": "number",
+        "description": "Valor do MACD, calculado como a diferença entre a EMA de curto prazo e a EMA de longo prazo."
+      },
+      "MACD_Signal": {
+        "type": "number",
+        "description": "Linha de sinal derivada do MACD, calculada como a EMA do MACD."
+      }
+    },
+    "required": ["MACD", "MACD_Signal"]
+  }
+}
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "RSI Output",
+  "description": "Estrutura da resposta da função calculate() da classe RSI. Cada objeto representa uma linha do DataFrame com a coluna de preço original (padrão 'close') e a nova coluna 'RSI' calculada.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "close": {
+        "type": "number",
+        "description": "Valor do preço conforme definido pela coluna 'close'."
+      },
+      "RSI": {
+        "type": "number",
+        "description": "Valor do Índice de Força Relativa (RSI) calculado."
+      }
+    },
+    "required": [
+      "RSI"
+    ]
+  }
+}
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "VWAP Output",
+  "description": "Estrutura da resposta do método calculate() da classe VWAP. Cada objeto representa uma linha do DataFrame com as colunas 'close', 'volume' e a nova coluna 'VWAP' contendo o valor do VWAP calculado.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "close": {
+        "type": "number",
+        "description": "Preço de fechamento do ativo."
+      },
+      "volume": {
+        "type": "number",
+        "description": "Volume do ativo."
+      },
+      "VWAP": {
+        "type": "number",
+        "description": "Valor do VWAP calculado."
+      }
+    },
+    "required": ["close", "volume", "VWAP"]
+  }
+}
