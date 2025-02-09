@@ -17,7 +17,8 @@ dependencies = [
     "pandas (>=2.2.3,<3.0.0)",
     "numpy (>=2.2.2,<3.0.0)",
     "python-binance (>=1.0.27,<2.0.0)",
-    "sentry-sdk (>=2.20.0,<3.0.0)"
+    "sentry-sdk (>=2.20.0,<3.0.0)",
+    "toml (>=0.10.2,<0.11.0)"
 ]
 
 [project.urls]  # https://packaging.python.org/en/latest/specifications/well-known-project-urls/#well-known-labels
