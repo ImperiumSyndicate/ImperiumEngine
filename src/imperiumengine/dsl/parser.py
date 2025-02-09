@@ -119,6 +119,7 @@ class DSLParser:
         instructions: list[dict[str, Any]], start: int, *, stop_at_end: bool = False
     ) -> tuple[CompoundInstruction, int]:
         """
+
         Processa recursivamente um bloco de instruções a partir de um índice inicial.
 
         Este método percorre a lista de instruções iniciando em 'start' e analisa cada instrução.
