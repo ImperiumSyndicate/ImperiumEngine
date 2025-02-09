@@ -77,8 +77,3 @@ repos:
         entry: poetry check
         language: system
         pass_filenames: false
-      - id: mypy
-        name: mypy
-        entry: mypy
-        language: system
-        types: [python]
