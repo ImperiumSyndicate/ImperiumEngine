@@ -1,0 +1,44 @@
+{
+  "instructions": [
+    { "operation": "a = 100" },
+    { "operation": "b = 50" },
+    { "operation": "c = 25" },
+    { "operation": "d = 10" },
+    { "operation": "e = 200" },
+    { "operation": "f = 3.14" },
+    { "operation": "volume = 1500" },
+    { "operation": "risk = volume / 100" },
+
+    { "wait": "5s" },
+
+    { "if": "not(a == b) and ((a + b) > (c * 2)) and ((a - c) < (b ** 2))" },
+      { "trade": { "action": "buy", "symbol": "BTCUSDT", "quantity": 1 } },
+    { "end": true },
+
+    { "if": "implies(volume > 1000, (a / b) >= 2)" },
+      { "trade": { "action": "sell", "symbol": "BTCUSDT", "quantity": 1 } },
+    { "end": true },
+
+    { "if": "iff(a > c, d < e)" },
+      { "trade": { "action": "buy", "symbol": "ETHUSDT", "quantity": 10 } },
+    { "end": true },
+
+    { "if": "xor(a > d, b < e)" },
+      { "trade": { "action": "sell", "symbol": "ETHUSDT", "quantity": 5 } },
+    { "end": true },
+
+    { "if": "nand(a < b, c > d)" },
+      { "trade": { "action": "buy", "symbol": "BNBUSDT", "quantity": 20 } },
+    { "end": true },
+
+    { "if": "nor(a == c, b == d)" },
+      { "trade": { "action": "sell", "symbol": "BNBUSDT", "quantity": 10 } },
+    { "end": true },
+
+    { "if": "(((a + b) - (c * d)) / (e % 3)) ** 2 == 64" },
+      { "trade": { "action": "buy", "symbol": "XRPUSDT", "quantity": 100 } },
+    { "end": true },
+
+    { "operation": "print('Complex trading strategy executed with all logical and mathematical operations.')" }
+  ]
+}

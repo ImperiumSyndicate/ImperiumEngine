@@ -1,0 +1,13 @@
+# Configurações para Sentry
+[sentry]
+# DSN fornecido pelo Sentry; se não quiser habilitar, deixe a string vazia.
+dsn = "https://d50316a0d82472a835986db59e20e8db@o4508786411307008.ingest.us.sentry.io/4508786417532928"
+# Define o ambiente, como "production" ou "development".
+environment = "development"
+
+# Configurações para Graylog
+[graylog]
+# Endereço do servidor Graylog; se não quiser habilitar, deixe em branco.
+host = "graylog.exemplo.com"
+# Porta para comunicação com o Graylog.
+port = 12201
