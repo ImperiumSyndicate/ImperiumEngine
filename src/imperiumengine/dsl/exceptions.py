@@ -11,7 +11,6 @@ class DSLError(Exception):
     message : str
         Explicação detalhada do erro ocorrido.
 
-
     Traceback (most recent call last):
       ...
     DSLError: Operação inválida na DSL.
