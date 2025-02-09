@@ -10,6 +10,7 @@ class CompoundInstruction(Instruction):
     contexto. Cada instrução deve ser uma instância de uma classe derivada de `Instruction` e deve
     implementar o método `execute(context)`.
 
+
     Parameters
     ----------
     instructions : list of Instruction
