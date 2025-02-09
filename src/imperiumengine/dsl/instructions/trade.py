@@ -65,6 +65,7 @@ class TradeInstruction(Instruction):
 
     def execute(self, context: Context) -> None:
         """
+
         Executa a instrução de trade, registrando os dados no contexto.
 
         O método adiciona os dados do trade à lista associada à chave "trades" no dicionário
