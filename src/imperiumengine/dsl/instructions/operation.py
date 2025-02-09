@@ -34,6 +34,7 @@ class OperationInstruction(Instruction):
         Executa a operação de código no contexto fornecido, utilizando as variáveis presentes no
         objeto `Context`.
 
+
     Exemplos
     --------
     >>> from imperiumengine.dsl.context import Context
