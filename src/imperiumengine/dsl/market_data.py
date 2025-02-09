@@ -8,6 +8,7 @@ from imperiumengine.dsl.exceptions import DSLError
 
 class IMarketDataProvider(ABC):
     """
+
     Interface para provedores de dados de mercado.
 
     Esta interface define o contrato que deve ser implementado por qualquer classe que forneça
