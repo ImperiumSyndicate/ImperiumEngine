@@ -92,6 +92,7 @@ class WaitInstruction(Instruction):
         DSLError
             Se a unidade de tempo na string for inválida (diferente de 's', 'm' ou 'h') ou se o
             formato for incorreto.
+
         TypeError
             Se o valor informado não for numérico nem uma string com unidade.
         """
