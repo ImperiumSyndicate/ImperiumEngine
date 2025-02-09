@@ -15,6 +15,7 @@ class SafeEvaluator(ast.NodeVisitor):
 
     A classe permite operações aritméticas simples, operações unárias, operações booleanas, comparações,
     além de chamadas a funções permitidas. As funções autorizadas estão definidas na variável de classe
+
     `ALLOWED_FUNCTIONS`.
 
     Attributes
