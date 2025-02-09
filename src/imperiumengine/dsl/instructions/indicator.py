@@ -199,6 +199,7 @@ class IndicatorInstruction:
         ------
         DSLError
             Se ocorrer algum erro na execução do cálculo do indicador.
+
         """
         try:
             name = self._get_required_param("name")
