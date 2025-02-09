@@ -181,6 +181,7 @@ def compute_bollinger_bands(
 
 def compute_ema_series(prices: list[float], period: int) -> list[float]:
     """
+
     Calcula a série da Média Móvel Exponencial (EMA) para uma lista de preços.
 
     Utiliza a média móvel simples dos primeiros ``period`` valores como ponto de partida e,
