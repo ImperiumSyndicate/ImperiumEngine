@@ -46,6 +46,7 @@ class DSLInterpreter:
 
     def __init__(self, root_instruction, market_data_provider: IMarketDataProvider) -> None:
         """
+
         Inicializa o interpretador DSL com a instrução raiz e o provedor de dados de mercado.
 
         Parameters
