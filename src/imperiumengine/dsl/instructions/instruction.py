@@ -11,6 +11,7 @@ class Instruction(ABC):
     deve fornecer sua própria implementação do método `execute(context)`, que contém a lógica
     para executar a instrução utilizando o contexto fornecido.
 
+
     Methods
     -------
     execute(context: Context) -> None
