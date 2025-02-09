@@ -31,6 +31,7 @@ class Context:
 
     def update(self, data: dict[str, any]) -> None:
         """
+
         Atualiza o contexto com os dados fornecidos.
 
         Este método recebe um dicionário e atualiza o dicionário interno `variables` com os
