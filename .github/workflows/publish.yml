@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Python
@@ -21,7 +21,37 @@ jobs:
       - name: Install Poetry
         run: pip install --no-input poetry
 
-      - name: Publish package
+      - name: Extrair notas de release do CHANGELOG
+        id: extract_release_notes
+        run: |
+          # Obtém a tag da release a partir do payload do evento
+          TAG="${{ github.event.release.tag_name }}"
+          echo "Extraindo notas de release para a tag $TAG"
+          # Define o padrão de cabeçalho esperado no CHANGELOG
+          # Exemplo: "## [v1.2.3]"
+          header="## [$TAG]"
+          # Extrai as linhas após o cabeçalho correspondente até o próximo cabeçalho (iniciando com "## [")
+          awk -v header="$header" '
+            $0 == header {flag=1; next}
+            /^## \[/ && flag {exit}
+            flag {print}' CHANGELOG.md > release_notes.txt
+          # Se não houver conteúdo, insere uma mensagem padrão
+          if [ ! -s release_notes.txt ]; then
+            echo "Nenhuma nota de release encontrada para a tag $TAG." > release_notes.txt
+          fi
+          echo "Notas extraídas:"
+          cat release_notes.txt
+
+      - name: Atualizar release no GitHub com as notas extraídas
+        run: |
+          TAG="${{ github.event.release.tag_name }}"
+          echo "Atualizando release $TAG com as notas extraídas"
+          # O GitHub CLI já está instalado no runner ubuntu-latest
+          gh release edit "$TAG" --notes-file release_notes.txt
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publicar package no PyPI
         run: |
           poetry config pypi-token.pypi "${{ secrets.POETRY_PYPI_TOKEN_PYPI }}"
           poetry publish --build
