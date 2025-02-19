@@ -15,10 +15,11 @@ requires-python = ">=3.10,<4.0"
 dependencies = [
     "sqlalchemy (>=2.0.37,<3.0.0)",
     "pandas (>=2.2.3,<3.0.0)",
-    "numpy (>=2.2.2,<3.0.0)",
+    "numpy (>=1.22.2,<2.0.0)",
     "python-binance (>=1.0.27,<2.0.0)",
     "sentry-sdk (>=2.20.0,<3.0.0)",
-    "toml (>=0.10.2,<0.11.0)"
+    "toml (>=0.10.2,<0.11.0)",
+    "vectorbt (>=0.27.2,<0.28.0)"
 ]
 
 [project.urls]  # https://packaging.python.org/en/latest/specifications/well-known-project-urls/#well-known-labels
@@ -48,6 +49,7 @@ ipykernel = ">=6.29.4"
 ipython = ">=8.18.0"
 ipywidgets = ">=8.1.2"
 pdoc = ">=15.0.1"
+pytest = "^8.3.4"
 
 [tool.commitizen]  # https://commitizen-tools.github.io/commitizen/config/
 bump_message = "bump: v$current_version → v$new_version"
