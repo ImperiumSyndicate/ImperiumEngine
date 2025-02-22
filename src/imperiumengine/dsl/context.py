@@ -1,3 +1,6 @@
+from typing import Any
+
+
 class Context:
     """
     Contexto de execução que armazena variáveis.
@@ -8,12 +11,12 @@ class Context:
 
     Attributes
     ----------
-    variables : dict[str, any]
+    variables : dict[str, Any]
         Dicionário que armazena as variáveis do contexto.
 
     Methods
     -------
-    update(data: dict[str, any]) -> None
+    update(data: dict[str, Any]) -> None
         Atualiza o dicionário de variáveis com os valores fornecidos em `data`.
 
     Examples
@@ -27,9 +30,9 @@ class Context:
     """
 
     def __init__(self) -> None:
-        self.variables: dict[str, any] = {}
+        self.variables: dict[str, Any] = {}
 
-    def update(self, data: dict[str, any]) -> None:
+    def update(self, data: dict[str, Any]) -> None:
         """
 
         Atualiza o contexto com os dados fornecidos.
@@ -40,7 +43,7 @@ class Context:
 
         Parameters
         ----------
-        data : dict[str, any]
+        data : dict[str, Any]
             Dicionário contendo os dados a serem atualizados no contexto.
 
         Examples

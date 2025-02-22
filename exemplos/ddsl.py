@@ -1,5 +1,4 @@
 import json
-import time
 from pathlib import Path
 
 import requests
@@ -15,9 +14,9 @@ from imperiumengine.dsl.validators import StrategyValidator
 def send_order_signal(order: dict) -> None:
     """
     Envia um sinal da ordem via HTTP.
-    Substitua 'http://your-http-endpoint.com/signal' pelo endpoint desejado.
+    Substitua 'https://webhook.site/f242460a-8a0a-458b-9d33-c1c5471281a6' pelo endpoint desejado.
     """
-    url = "https://webhook.site/096b9dca-8e4b-4145-88de-c42c9eeb0231"
+    url = "https://webhook.site/f242460a-8a0a-458b-9d33-c1c5471281a6"
     try:
         response = requests.post(url, json=order, timeout=5)
         response.raise_for_status()  # Levanta exceção para status HTTP 4xx/5xx
@@ -31,6 +30,36 @@ def load_strategy(file_path: str) -> list:
     with Path(file_path).open() as f:
         data = json.load(f)
     return data.get("instructions", [])
+
+
+def execute_strategy_iteration(root_instruction, market_data_provider, logger) -> None:
+    """
+    Executa uma iteração da estratégia.
+    """
+    interpreter = DSLInterpreter(root_instruction, market_data_provider)
+    interpreter.load_market_data(
+        symbol="DOGEUSDT", interval=Client.KLINE_INTERVAL_1MINUTE, limit=100
+    )
+    interpreter.run()
+
+    logger.info("Execution complete. Final state:")
+    for key, value in interpreter.context.variables.items():
+        logger.info(f"  {key}: {value}")
+
+    trades = interpreter.context.variables.get("trades", [])
+    for trade in trades:
+        send_order_signal(trade)
+
+
+def safe_execute_strategy(root_instruction, market_data_provider, logger) -> None:
+    """
+    Envolve a execução de uma iteração da estratégia em um bloco try-except.
+    Essa função isola o try-except, evitando seu uso direto no loop.
+    """
+    try:
+        execute_strategy_iteration(root_instruction, market_data_provider, logger)
+    except Exception as e:
+        logger.exception("Error during strategy execution: %s", e)
 
 
 def main() -> None:
@@ -63,33 +92,7 @@ def main() -> None:
 
     # Loop de monitoramento contínuo
     while True:
-        try:
-            # Cria uma nova instância do interpretador (ou reinicia o contexto, conforme sua necessidade)
-            interpreter = DSLInterpreter(root_instruction, market_data_provider)
-
-            # Carrega os dados de mercado (ajuste o símbolo, intervalo e limite conforme necessário)
-            interpreter.load_market_data(
-                symbol="DOGEUSDT", interval=Client.KLINE_INTERVAL_1MINUTE, limit=100
-            )
-
-            # Executa a estratégia definida
-            interpreter.run()
-
-            logger.info("Execution complete. Final state:")
-            for key, value in interpreter.context.variables.items():
-                logger.info(f"  {key}: {value}")
-
-            # Se houver trades, envia um sinal para cada operação
-            trades = interpreter.context.variables.get("trades", [])
-            for trade in trades:
-                # Exemplo de trade: {'action': 'buy', 'symbol': 'BTCUSDT', 'quantity': 1}
-                send_order_signal(trade)
-
-        except Exception as e:
-            logger.exception("Error during strategy execution: %s", e)
-
-        # Aguarda 60 segundos antes de buscar novos dados e reexecutar a estratégia
-        time.sleep(60)
+        safe_execute_strategy(root_instruction, market_data_provider, logger)
 
 
 if __name__ == "__main__":
