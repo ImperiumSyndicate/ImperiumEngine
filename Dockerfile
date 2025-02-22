@@ -9,7 +9,7 @@ ENV UV_PROJECT_ENVIRONMENT=$VIRTUAL_ENV
 
 # Tell Git that the workspace is safe to avoid 'detected dubious ownership in repository' warnings.
 RUN git config --system --add safe.directory '*'
-
+RUN apt update && apt install -y git-flow
 # Configure the user's shell.
 RUN echo 'HISTFILE=~/.history/.bash_history' >> ~/.bashrc && \
     echo 'bind "\"\e[A\": history-search-backward"' >> ~/.bashrc && \
