@@ -1,3 +1,5 @@
+from typing import Any
+
 from imperiumengine.config.logger import LogFactory
 from imperiumengine.dsl.context import Context
 from imperiumengine.dsl.exceptions import DSLError
@@ -48,9 +50,9 @@ class IndicatorInstruction:
 
     Métodos
     -------
-    _compute_indicator(name: str, prices: list[float], context: Context) -> any
+    _compute_indicator(name: str, prices: list[float], context: Context) -> Any
         Calcula o valor do indicador com base no nome, na lista de preços e no contexto.
-    _get_required_param(param_name: str) -> any
+    _get_required_param(param_name: str) -> Any
         Recupera um parâmetro obrigatório do dicionário `indicator_data`.
     execute(context: Context) -> None
         Executa o cálculo do indicador e armazena o resultado no contexto.
@@ -83,7 +85,7 @@ class IndicatorInstruction:
         self.logger = LogFactory.get_logger(self.__class__.__name__)
         self.logger.info("IndicatorInstruction instance created with data: %s", self.indicator_data)
 
-    def _compute_indicator(self, name: str, prices: list[float], context: Context) -> any:
+    def _compute_indicator(self, name: str, prices: list[float], context: Context) -> Any:
         """
         Calcula o indicador de mercado especificado.
 
@@ -105,7 +107,7 @@ class IndicatorInstruction:
 
         Returns
         -------
-        any
+        Any
             Valor calculado do indicador. O tipo do retorno pode variar conforme o indicador.
 
         Raises
@@ -152,7 +154,7 @@ class IndicatorInstruction:
             self.logger.exception("Unexpected error computing indicator '%s'", name)
             raise DSLError(f"Unexpected error computing {name}: {e}")
 
-    def _get_required_param(self, param_name: str) -> any:
+    def _get_required_param(self, param_name: str) -> Any:
         """
         Recupera um parâmetro obrigatório do dicionário `indicator_data`.
 
@@ -166,7 +168,7 @@ class IndicatorInstruction:
 
         Returns
         -------
-        any
+        Any
             Valor associado ao parâmetro requisitado.
 
         Raises

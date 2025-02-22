@@ -2,7 +2,7 @@
 htmlcov/
 reports/
 
-# cruft
+# Copier
 *.rej
 
 # Data
@@ -40,10 +40,6 @@ mise.local.toml
 # Node.js
 node_modules/
 
-# Poetry
-.venv/
-dist/
-
 # PyCharm
 .idea/
 
@@ -55,7 +51,10 @@ dist/
 
 # Python
 __pycache__/
+*.egg-info/
 *.py[cdo]
+.venv/
+dist/
 
 # Ruff
 .ruff_cache/

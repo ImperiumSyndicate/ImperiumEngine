@@ -14,7 +14,6 @@ class IfInstruction(Instruction):
     """
     Avalia um bloco condicional e executa suas instruções se a condição for verdadeira.
 
-
     Esta classe representa uma instrução condicional que avalia uma expressão booleana definida em
     `condition`. Se a expressão, quando avaliada utilizando as variáveis do contexto, retornar um
     valor verdadeiro, o bloco de instruções associado (`block`) é executado.

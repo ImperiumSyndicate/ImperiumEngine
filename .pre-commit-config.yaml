@@ -52,6 +52,13 @@ repos:
         require_serial: true
         language: system
         stages: [commit-msg]
+      - id: uv-lock-check
+        name: uv lock check
+        entry: uv lock
+        args: ["--check"]
+        require_serial: true
+        language: system
+        pass_filenames: false
       - id: ruff-check
         name: ruff check
         entry: ruff check
@@ -66,14 +73,4 @@ repos:
         require_serial: true
         language: system
         types_or: [python, pyi]
-      - id: shellcheck
-        name: shellcheck
-        entry: shellcheck
-        args: [--check-sourced]
-        language: system
-        types: [shell]
-      - id: poetry-check
-        name: poetry check
-        entry: poetry check
-        language: system
-        pass_filenames: false
+

@@ -1,56 +1,21 @@
-name: Release & Publish
+name: Publish
 
 on:
-  push:
-    tags:
-      - "v*.*.*"
+  release:
+    types:
+      - created
 
 jobs:
-  release_and_publish:
-    runs-on: ubuntu-latest
+  publish:
+    runs-on: ghcr.io/astral-sh/uv:3.10-bookworm
+
     steps:
-      - name: Checkout Repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.13"
-
-      - name: Install Poetry
-        run: pip install --no-input poetry
-
-      - name: Extract Tag Name
-        run: echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
-
-      - name: Extract release notes from CHANGELOG.md
-        id: extract_release_notes
+      - name: Publish package
         run: |
-          echo "Extraindo notas de release para a tag: $TAG_NAME"
-          # Define o cabeçalho esperado no CHANGELOG para a tag, ex.: "## [v1.2.3]"
-          header="## [$TAG_NAME]"
-          # Extrai as linhas logo após o cabeçalho até encontrar o próximo cabeçalho que inicie com "## ["
-          awk -v header="$header" '
-            $0 == header {flag=1; next}
-            /^## \[/ && flag {exit}
-            flag {print}' CHANGELOG.md > release_notes.txt
-          # Caso nenhuma nota seja encontrada, insere uma mensagem padrão
-          if [ ! -s release_notes.txt ]; then
-            echo "Nenhuma nota de release encontrada para a tag $TAG_NAME." > release_notes.txt
-          fi
-          echo "Notas extraídas:"
-          cat release_notes.txt
-
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v1
-        with:
-          tag_name: ${{ env.TAG_NAME }}
-          release_name: "Release ${{ env.TAG_NAME }}"
-          body_path: release_notes.txt
+          uv build
+          uv publish
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Publish package to PyPI
-        run: |
-          poetry config pypi-token.pypi "${{ secrets.POETRY_PYPI_TOKEN_PYPI }}"
-          poetry publish --build
+          UV_PUBLISH_TOKEN: ${{ secrets.UV_PUBLISH_TOKEN }}
