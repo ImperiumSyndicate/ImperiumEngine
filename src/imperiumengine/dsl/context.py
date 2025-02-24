@@ -30,11 +30,13 @@ class Context:
     """
 
     def __init__(self) -> None:
+        """
+        Inicializa uma nova instância de Context com um dicionário vazio de variáveis.
+        """
         self.variables: dict[str, Any] = {}
 
     def update(self, data: dict[str, Any]) -> None:
         """
-
         Atualiza o contexto com os dados fornecidos.
 
         Este método recebe um dicionário e atualiza o dicionário interno `variables` com os

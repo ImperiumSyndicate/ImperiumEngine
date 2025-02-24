@@ -5,10 +5,11 @@
     "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}/",
     "features": {
         "ghcr.io/devcontainers/features/node:1": {},
-        "ghcr.io/devcontainers-extra/features/starship": {}
+        "ghcr.io/devcontainers-extra/features/starship": {},
+        "ghcr.io/mikaello/devcontainer-features/modern-shell-utils:1": {}
     },
     "overrideCommand": true,
-    "postCreateCommand": "echo 'eval \"$(starship init bash)\"' >> ~/.bashrc",
+    "onCreateCommand": "echo 'eval \"$(starship init bash)\"' >> ~/.bashrc && echo 'eval \"$(starship init zsh)\"' >> ~/.zshrc",
     "postStartCommand": "uv sync --python ${PYTHON_VERSION:-3.10} ${RESOLUTION_STRATEGY:+--resolution $RESOLUTION_STRATEGY} --all-extras && pre-commit install --install-hooks",
     "customizations": {
         "jetbrains": {
@@ -30,7 +31,12 @@
                 "ms-toolsai.jupyter",
                 "ryanluker.vscode-coverage-gutters",
                 "tamasfe.even-better-toml",
-                "visualstudioexptteam.vscodeintellicode"
+                "visualstudioexptteam.vscodeintellicode",
+                "Tyriar.theme-sapphire",
+                "LittleFoxTeam.vscode-python-test-adapter",
+                "tamasfe.even-better-toml",
+                "PsykoSoldi3r.vscode-git-flow",
+                "Postman.postman-for-vscode"
             ],
             "settings": {
                 "coverage-gutters.coverageFileNames": [
@@ -41,19 +47,46 @@
                     "source.organizeImports": "explicit"
                 },
                 "editor.formatOnSave": true,
+                "editor.fontLigatures": true,
+                "editor.bracketPairColorization.enabled": true,
+                "editor.minimap.enabled": true,
+                "editor.minimap.renderCharacters": true,
+                "editor.minimap.showSlider": "always",
+                "editor.minimap.side": "right",
+                "editor.minimap.size": "fit",
+                "editor.minimap.scale": 3,
+                "editor.smoothScrolling": true,
+                "editor.mouseWheelZoom": true,
+                "files.exclude": {
+                    "**/.git": true,
+                    "**/.ipynb_checkpoints": true,
+                    "**/.mypy_cache": true,
+                    "**/.pytest_cache": true,
+                    "**/__pycache__": true,
+                    "**/node_modules": true,
+                    "**/reports": true,
+                    "**/venv": true,
+                    "**/env": true,
+                    "**/site-packages": true,
+                    "**/target": true,
+                    "**/tmp": true,
+                    "**/yarn.lock": true,
+                    "**/.venv*": true,
+                    "**/.ruff_cache": true,
+                    "**/.idea": true
+                },
+                "workbench.colorTheme": "Sapphire (Dim)",
                 "[python]": {
                     "editor.defaultFormatter": "charliermarsh.ruff"
                 },
                 "[toml]": {
-                    "editor.formatOnSave": false
+                    "editor.formatOnSave": true
                 },
                 "editor.rulers": [
                     100
                 ],
                 "files.autoSave": "onFocusChange",
-                "github.copilot.chat.agent.enabled": true,
                 "github.copilot.chat.edits.codesearch.enabled": true,
-                "github.copilot.chat.edits.enabled": true,
                 "github.copilot.nextEditSuggestions.enabled": true,
                 "jupyter.kernels.excludePythonEnvironments": [
                     "/usr/local/bin/python"
@@ -75,7 +108,11 @@
                 },
                 "terminal.integrated.env.mac": {
                     "GIT_EDITOR": "code --wait"
-                }
+                },
+                "explorer.compactFolders": false,
+                "scm.compactFolders": false,
+                "editor.cursorBlinking": "expand",
+                "notebook.compactView": false
             }
         }
     }

@@ -1,0 +1,261 @@
+site_name: ImperiumSyndicate
+site_description: Documentation about ImperiumSyndicate
+site_author: ImperiumSyndicate
+copyright: "\xA9 2025 ImperiumSyndicate. All rights reserved"
+repo_name: GitHub
+repo_url: https://github.com/ImperiumSyndicate/ImperiumEngine
+edit_uri: https://github.com/ImperiumSyndicate/ImperiumEngine/tree/main/docs
+theme:
+  name: material
+  features:
+  - navigation.tabs
+  - navigation.path
+  - navigation.footer
+  - navigation.expand
+  - content.action.edit
+  - content.action.view
+  - content.code.annotate
+  - content.code.copy
+  - search.highlight
+  palette:
+    scheme: filigran
+  font:
+    text: IBM Plex Sans
+    code: Roboto Mono
+markdown_extensions:
+  toc:
+    permalink: true
+  markdown.extensions.codehilite:
+    guess_lang: false
+  mdx_include:
+    base_path: docs
+  admonition: null
+  codehilite: null
+  extra: null
+  pymdownx.tabbed:
+    alternate_style: true
+  pymdownx.tilde: null
+  attr_list: null
+  md_in_html: null
+  pymdownx.highlight:
+    use_pygments: true
+    anchor_linenums: true
+    line_spans: __span
+    pygments_lang_class: false
+    auto_title: false
+  pymdownx.tasklist:
+    custom_checkbox: true
+  pymdownx.snippets:
+    url_download: true
+extra:
+  version:
+    provider: mike
+  generator: false
+  social:
+  - icon: fontawesome/brands/github
+    link: https://github.com/ImperiumSyndicate
+  - icon: fontawesome/brands/slack
+    link: https://discord.gg/UtDMf4wF4Q
+  - icon: fontawesome/brands/linkedin
+    link: https://www.linkedin.com/in/luizgustavocorrea/
+plugins:
+- mike:
+    alias_type: symlink
+    canonical_version: latest
+- search
+- glightbox
+- privacy
+- info:
+    enabled: false
+    enabled_on_serve: true
+- search:
+    pipeline:
+    - stemmer
+    - stopWordFilter
+    - trimmer
+- group:
+    plugins:
+    - optimize
+    - minify
+- mkdocstrings:
+    handlers:
+      python:
+        paths:
+        - src
+        options:
+          extensions:
+          - griffe_typingdoc
+          show_if_no_docstring: true
+          show_source: true
+          allow_inspection: false
+          show_bases: true
+          preload_modules:
+          - imperiumengine
+          parameter_headings: true
+          show_root_heading: false
+          show_root_toc_entry: true
+          show_root_full_path: true
+          show_root_members_full_path: true
+          show_object_full_path: true
+          group_by_category: true
+          show_category_heading: true
+          show_symbol_type_heading: true
+          show_symbol_type_toc: true
+          docstring_style: numpy
+          show_docstring_attributes: true
+          show_docstring_functions: true
+          show_docstring_classes: true
+          show_docstring_modules: true
+          show_docstring_description: true
+          show_docstring_other_parameters: true
+          inherited_members: true
+          members_order: source
+          separate_signature: true
+          unwrap_annotated: true
+          filters:
+          - '!^_'
+          merge_init_into_class: true
+          docstring_section_style: spacy
+          signature_crossrefs: true
+nav:
+- Home: index.md
+- SDK Setup:
+  - Ubuntu: development/environment_ubuntu.md
+- Development:
+  - Prerequisites:
+    - Ubuntu: development/environment_ubuntu.md
+    - Windows: development/environment_windows.md
+  - Platform: development/platform.md
+  - Python library: development/python.md
+  - Connectors: development/connectors.md
+  - Playground: development/api-usage.md
+- Reference (Code API):
+  - analyzer:
+    - Analyzer:
+      - Analyzer:
+        - reference/imperiumengine/analyzer/Analyzer.md
+  - collector:
+    - news_base:
+      - Newscollectorbase:
+        - reference/imperiumengine/collector/news_base/NewsCollectorBase.md
+    - onchain_base:
+      - Onchaincollectorbase:
+        - reference/imperiumengine/collector/onchain_base/OnchainCollectorBase.md
+    - sentiment_base:
+      - Sentimentcollectorbase:
+        - reference/imperiumengine/collector/sentiment_base/SentimentCollectorBase.md
+    - social_base:
+      - Socialcollectorbase:
+        - reference/imperiumengine/collector/social_base/SocialCollectorBase.md
+    - technical_base:
+      - Technicalcollectorbase:
+        - reference/imperiumengine/collector/technical_base/TechnicalCollectorBase.md
+  - collectors_impl:
+    - coindesk_api/coindesk_api:
+      - Coindeskapi:
+        - reference/imperiumengine/collectors_impl/coindesk_api/coindesk_api/CoinDeskAPI.md
+    - coindesk_api/modules/asset:
+      - Assetmodule:
+        - reference/imperiumengine/collectors_impl/coindesk_api/modules/asset/AssetModule.md
+    - coindesk_api/modules/deprecated:
+      - Deprecatedmodule:
+        - reference/imperiumengine/collectors_impl/coindesk_api/modules/deprecated/DeprecatedModule.md
+    - coindesk_api/modules/erivatives_indices:
+      - Derivativesindicesmodule:
+        - reference/imperiumengine/collectors_impl/coindesk_api/modules/erivatives_indices/DerivativesIndicesModule.md
+    - coindesk_api/modules/futures:
+      - Futuresmodule:
+        - reference/imperiumengine/collectors_impl/coindesk_api/modules/futures/FuturesModule.md
+    - coindesk_api/modules/indices_ref_rates:
+      - Indicesrefratesmodule:
+        - reference/imperiumengine/collectors_impl/coindesk_api/modules/indices_ref_rates/IndicesRefRatesModule.md
+    - coindesk_api/modules/news:
+      - Newsmodule:
+        - reference/imperiumengine/collectors_impl/coindesk_api/modules/news/NewsModule.md
+    - coindesk_api/modules/on_chain_core:
+      - Onchaincoremodule:
+        - reference/imperiumengine/collectors_impl/coindesk_api/modules/on_chain_core/OnChainCoreModule.md
+    - coindesk_api/modules/on_chain_dex:
+      - Onchaindexmodule:
+        - reference/imperiumengine/collectors_impl/coindesk_api/modules/on_chain_dex/OnChainDEXModule.md
+    - coindesk_api/modules/options:
+      - Optionsmodule:
+        - reference/imperiumengine/collectors_impl/coindesk_api/modules/options/OptionsModule.md
+    - coindesk_api/modules/overview:
+      - Overviewmodule:
+        - reference/imperiumengine/collectors_impl/coindesk_api/modules/overview/OverviewModule.md
+    - coindesk_api/modules/spot:
+      - Spotmodule:
+        - reference/imperiumengine/collectors_impl/coindesk_api/modules/spot/SpotModule.md
+    - coindesk_api/modules/utilities:
+      - Utilitiesmodule:
+        - reference/imperiumengine/collectors_impl/coindesk_api/modules/utilities/UtilitiesModule.md
+    - my_news:
+      - Mynewscollector:
+        - reference/imperiumengine/collectors_impl/my_news/MyNewsCollector.md
+    - my_onchain:
+      - Myonchaincollector:
+        - reference/imperiumengine/collectors_impl/my_onchain/MyOnchainCollector.md
+    - my_sentiment:
+      - Mysentimentcollector:
+        - reference/imperiumengine/collectors_impl/my_sentiment/MySentimentCollector.md
+    - my_social:
+      - Mysocialcollector:
+        - reference/imperiumengine/collectors_impl/my_social/MySocialCollector.md
+    - my_technical:
+      - Mytechnicalcollector:
+        - reference/imperiumengine/collectors_impl/my_technical/MyTechnicalCollector.md
+  - config:
+    - imperiumengine_settings:
+      - Imperiumengineconfig:
+        - reference/imperiumengine/config/imperiumengine_settings/ImperiumengineConfig.md
+    - logger:
+      - Coloredformatter:
+        - reference/imperiumengine/config/logger/ColoredFormatter.md
+      - Logfactory:
+        - reference/imperiumengine/config/logger/LogFactory.md
+  - dsl:
+    - context:
+      - Context:
+        - reference/imperiumengine/dsl/context/Context.md
+    - evaluator:
+      - Safeevaluator:
+        - reference/imperiumengine/dsl/evaluator/SafeEvaluator.md
+    - exceptions:
+      - Dslerror:
+        - reference/imperiumengine/dsl/exceptions/DSLError.md
+    - instructions/compound_instruction:
+      - Compoundinstruction:
+        - reference/imperiumengine/dsl/instructions/compound_instruction/CompoundInstruction.md
+    - instructions/if_instruction:
+      - Ifinstruction:
+        - reference/imperiumengine/dsl/instructions/if_instruction/IfInstruction.md
+    - instructions/indicator:
+      - Indicatorinstruction:
+        - reference/imperiumengine/dsl/instructions/indicator/IndicatorInstruction.md
+    - instructions/instruction:
+      - Instruction:
+        - reference/imperiumengine/dsl/instructions/instruction/Instruction.md
+    - instructions/operation:
+      - Operationinstruction:
+        - reference/imperiumengine/dsl/instructions/operation/OperationInstruction.md
+    - instructions/trade:
+      - Tradeinstruction:
+        - reference/imperiumengine/dsl/instructions/trade/TradeInstruction.md
+    - instructions/wait_instruction:
+      - Waitinstruction:
+        - reference/imperiumengine/dsl/instructions/wait_instruction/WaitInstruction.md
+    - interpreter:
+      - Dslinterpreter:
+        - reference/imperiumengine/dsl/interpreter/DSLInterpreter.md
+    - market_data:
+      - Binancemarketdataprovider:
+        - reference/imperiumengine/dsl/market_data/BinanceMarketDataProvider.md
+      - Imarketdataprovider:
+        - reference/imperiumengine/dsl/market_data/IMarketDataProvider.md
+    - parser:
+      - Dslparser:
+        - reference/imperiumengine/dsl/parser/DSLParser.md
+    - validators:
+      - Strategyvalidator:
+        - reference/imperiumengine/dsl/validators/StrategyValidator.md

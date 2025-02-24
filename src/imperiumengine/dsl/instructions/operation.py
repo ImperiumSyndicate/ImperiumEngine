@@ -14,28 +14,27 @@ class OperationInstruction(Instruction):
     as variáveis presentes no contexto, permitindo a modificação do estado ou a execução de
     lógicas definidas pela DSL.
 
-    Parâmetros
+    Parameters
     ----------
     operation : str
         String contendo o código ou operação a ser executada. Essa operação deve ser compatível
         com a sintaxe esperada pelo interpretador da DSL.
 
-    Atributos
-    ---------
+    Attributes
+    ----------
     operation : str
         Armazena a operação de código que será executada.
     logger : logging.Logger
         Instância do logger utilizada para registrar mensagens, erros e informações durante a execução
         da operação.
 
-    Métodos
+    Methods
     -------
     execute(context: Context) -> None
         Executa a operação de código no contexto fornecido, utilizando as variáveis presentes no
         objeto `Context`.
 
-
-    Exemplos
+    Examples
     --------
     >>> from imperiumengine.dsl.context import Context
     >>> # Supondo que o contexto possua um atributo 'variables' (um dicionário)
@@ -43,7 +42,6 @@ class OperationInstruction(Instruction):
     >>> context.variables = {"x": 10}
     >>>
     >>> # Criação de uma operação que incrementa a variável 'x'
-    >>> context.variables = {"x": 10}
     >>> instrucao_operacao = OperationInstruction("x = x + 5")
     >>> instrucao_operacao.execute(context)
     >>> context.variables["x"]

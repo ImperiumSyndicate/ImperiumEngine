@@ -15,7 +15,6 @@ class SafeEvaluator(ast.NodeVisitor):
 
     A classe permite operações aritméticas simples, operações unárias, operações booleanas, comparações,
     além de chamadas a funções permitidas. As funções autorizadas estão definidas na variável de classe
-
     `ALLOWED_FUNCTIONS`.
 
     Attributes
@@ -82,7 +81,6 @@ class SafeEvaluator(ast.NodeVisitor):
             return left**right
         raise DSLError(f"Binary operator {type(node.op).__name__} is not supported.")
 
-    # Alias para compatibilidade com o despacho da AST
     visit_BinOp = visit_binop
 
     def visit_unaryop(self, node: ast.UnaryOp) -> Any:

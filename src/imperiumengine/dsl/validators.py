@@ -278,7 +278,7 @@ class StrategyValidator:
         """
         value = instr["wait"]
         MIN_WAIT_LENGTH = 2
-        if isinstance(value, int | float):
+        if isinstance(value, (int, float)):
             return
         if isinstance(value, str):
             if len(value) < MIN_WAIT_LENGTH or value[-1].lower() not in ["s", "m", "h"]:
@@ -299,6 +299,7 @@ class StrategyValidator:
     def append_error(message: str) -> None:
         """
         Registra uma mensagem de erro.
+
         A mensagem é registrada via logger e adicionada à lista de erros acumulada.
 
         Parameters

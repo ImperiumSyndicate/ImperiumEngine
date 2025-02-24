@@ -44,7 +44,8 @@ class WaitInstruction(Instruction):
     Raises
     ------
     DSLError
-        Se a unidade de tempo na string for inválida ou se o formato da string for incorreto.
+        Se a unidade de tempo na string for inválida (diferente de 's', 'm' ou 'h') ou se o
+        formato for incorreto.
     TypeError
         Se o valor informado não for numérico nem uma string com unidade.
 
@@ -52,7 +53,6 @@ class WaitInstruction(Instruction):
     --------
     >>> import time
     >>> from imperiumengine.dsl.context import Context
-    >>> # Criação de um contexto real (instância de Context)
     >>> context = Context()
     >>> # Exemplo com valor numérico inferior ao mínimo (1 segundo é ajustado para 2 segundos)
     >>> w = WaitInstruction(1)
@@ -92,19 +92,17 @@ class WaitInstruction(Instruction):
         DSLError
             Se a unidade de tempo na string for inválida (diferente de 's', 'm' ou 'h') ou se o
             formato for incorreto.
-
         TypeError
             Se o valor informado não for numérico nem uma string com unidade.
         """
         self.logger = LogFactory.get_logger(self.__class__.__name__)
 
         try:
-            if isinstance(duration, int | float):
+            if isinstance(duration, (int, float)):
                 self.duration = float(duration)
             elif isinstance(duration, str):
                 unit = duration[-1].lower()
                 value = float(duration[:-1])
-
                 if unit == "s":
                     self.duration = value
                 elif unit == "m":
