@@ -179,9 +179,9 @@ class SoarDocumentationBuilder:
 
 if __name__ == "__main__":
     package_name = "imperiumengine"
-    base_directory = "../../docs/reference/imperiumengine/"
-    mkdocs_file_path = "../../mkdocs.yml"
-    template_path = "../../doc_data/template_mkdocs.yml"
+    base_directory = "docs/reference/imperiumengine/"
+    mkdocs_file_path = "mkdocs.yml"
+    template_path = "doc_data/template_mkdocs.yml"
 
     builder = SoarDocumentationBuilder(
         package_name, base_directory, mkdocs_file_path, template_path

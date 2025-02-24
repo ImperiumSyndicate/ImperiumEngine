@@ -18,45 +18,6 @@
 ## Collector / Technical Base
 
 - [Technicalcollectorbase](collector/technical_base/TechnicalCollectorBase.md)
-## Collectors Impl / Coindesk Api/Coindesk Api
-
-- [Coindeskapi](collectors_impl/coindesk_api/coindesk_api/CoinDeskAPI.md)
-## Collectors Impl / Coindesk Api/Modules/Asset
-
-- [Assetmodule](collectors_impl/coindesk_api/modules/asset/AssetModule.md)
-## Collectors Impl / Coindesk Api/Modules/Deprecated
-
-- [Deprecatedmodule](collectors_impl/coindesk_api/modules/deprecated/DeprecatedModule.md)
-## Collectors Impl / Coindesk Api/Modules/Erivatives Indices
-
-- [Derivativesindicesmodule](collectors_impl/coindesk_api/modules/erivatives_indices/DerivativesIndicesModule.md)
-## Collectors Impl / Coindesk Api/Modules/Futures
-
-- [Futuresmodule](collectors_impl/coindesk_api/modules/futures/FuturesModule.md)
-## Collectors Impl / Coindesk Api/Modules/Indices Ref Rates
-
-- [Indicesrefratesmodule](collectors_impl/coindesk_api/modules/indices_ref_rates/IndicesRefRatesModule.md)
-## Collectors Impl / Coindesk Api/Modules/News
-
-- [Newsmodule](collectors_impl/coindesk_api/modules/news/NewsModule.md)
-## Collectors Impl / Coindesk Api/Modules/On Chain Core
-
-- [Onchaincoremodule](collectors_impl/coindesk_api/modules/on_chain_core/OnChainCoreModule.md)
-## Collectors Impl / Coindesk Api/Modules/On Chain Dex
-
-- [Onchaindexmodule](collectors_impl/coindesk_api/modules/on_chain_dex/OnChainDEXModule.md)
-## Collectors Impl / Coindesk Api/Modules/Options
-
-- [Optionsmodule](collectors_impl/coindesk_api/modules/options/OptionsModule.md)
-## Collectors Impl / Coindesk Api/Modules/Overview
-
-- [Overviewmodule](collectors_impl/coindesk_api/modules/overview/OverviewModule.md)
-## Collectors Impl / Coindesk Api/Modules/Spot
-
-- [Spotmodule](collectors_impl/coindesk_api/modules/spot/SpotModule.md)
-## Collectors Impl / Coindesk Api/Modules/Utilities
-
-- [Utilitiesmodule](collectors_impl/coindesk_api/modules/utilities/UtilitiesModule.md)
 ## Collectors Impl / My News
 
 - [Mynewscollector](collectors_impl/my_news/MyNewsCollector.md)
