@@ -25,6 +25,6 @@ jobs:
           path: .cache 
           restore-keys: |
             mkdocs-material-
-      - run: pip install mkdocs-material
-      - run: python  scripts/gendoc/dsa.py 
+      - run: pip install mkdocs-material markdown-include-variants>=0.0.4 mdx-include>=1.4.2 mike>=2.1. mkdocs-bootswatch>=1.1 mkdocs-glightbox>=0.4.0 mkdocs-macros-plugin>=1.3.7 mkdocs-material>=9.6.5 mkdocs-redirects>=1.2.2 mkdocstrings[python]>=0.28.1
+      - run: python scripts/gendoc/dsa.py 
       - run: mkdocs gh-deploy --force
