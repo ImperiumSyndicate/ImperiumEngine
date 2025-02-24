@@ -205,7 +205,6 @@ package = true
 [tool.poe.tasks.docs]
 help = "Generate this package's docs using mkdocs"
 cmd = "mkdocs build"
-
 [tool.poe.tasks.docs-generete]
 help = "Generate this package's docs using mkdocs"
 cmd = " python  scripts/gendoc/dsa.py"
