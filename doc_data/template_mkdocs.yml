@@ -1,0 +1,143 @@
+site_name: ImperiumSyndicate
+site_description: Documentation about ImperiumSyndicate
+site_author: ImperiumSyndicate
+copyright: © 2025 ImperiumSyndicate. All rights reserved
+repo_name: GitHub
+repo_url: https://github.com/ImperiumSyndicate/ImperiumEngine
+edit_uri: https://github.com/ImperiumSyndicate/ImperiumEngine/tree/main/docs
+
+
+# Theming
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.path
+    - navigation.footer
+    - navigation.expand
+    - content.action.edit
+    - content.action.view
+    - content.code.annotate
+    - content.code.copy
+    - search.highlight
+  palette:
+    scheme: filigran
+  font:
+    text: IBM Plex Sans
+    code: Roboto Mono
+
+markdown_extensions:
+  toc:
+    permalink: true
+  markdown.extensions.codehilite:
+    guess_lang: false
+  mdx_include:
+    base_path: docs
+  admonition: null
+  codehilite: null
+  extra: null
+  pymdownx.tabbed:
+    alternate_style: true
+  pymdownx.tilde: null
+  attr_list: null
+  md_in_html: null
+  pymdownx.highlight:
+    use_pygments: true
+    anchor_linenums: true
+    line_spans: __span
+    pygments_lang_class: false
+    auto_title: false
+  pymdownx.tasklist:
+    custom_checkbox: true
+  pymdownx.snippets:
+    url_download: true
+
+# Extra
+extra:
+  version:
+    provider: mike
+  generator: false
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/ImperiumSyndicate
+    - icon: fontawesome/brands/slack
+      link: https://discord.gg/UtDMf4wF4Q
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/luizgustavocorrea/
+plugins:
+  - mike:
+      alias_type: symlink
+      canonical_version: latest
+  - search
+
+  - glightbox
+  - privacy
+  - info:
+      enabled: false
+      enabled_on_serve: true
+  - search:
+      pipeline:
+      - stemmer
+      - stopWordFilter
+      - trimmer
+  - group:
+      plugins:
+      - optimize
+      - minify
+
+
+  - mkdocstrings:
+      handlers:
+        python:
+          paths:
+          - src
+          options:
+            extensions:
+            - griffe_typingdoc
+            show_if_no_docstring: true
+            show_source: true
+            allow_inspection: false
+            show_bases: true
+            preload_modules:
+            - imperiumengine
+            parameter_headings: true
+            show_root_heading: false
+            show_root_toc_entry: true
+            show_root_full_path: true
+            show_root_members_full_path: true
+            show_object_full_path: true
+            group_by_category: true
+            show_category_heading: true
+            show_symbol_type_heading: true
+            show_symbol_type_toc: true
+            docstring_style: numpy
+            show_docstring_attributes: true
+            show_docstring_functions: true
+            show_docstring_classes: true
+            show_docstring_modules: true
+            show_docstring_description: true
+            show_docstring_other_parameters: true
+            inherited_members: true
+            members_order: source
+            separate_signature: true
+            unwrap_annotated: true
+            filters:
+            - '!^_'
+            merge_init_into_class: true
+            docstring_section_style: spacy
+            signature_crossrefs: true
+
+
+# Page tree
+nav:
+  - Home: 'index.md'
+  - SDK Setup:
+    - Ubuntu: development/environment_ubuntu.md
+  - Development:
+    - Prerequisites:
+      - Ubuntu: development/environment_ubuntu.md
+      - Windows: development/environment_windows.md
+    - Platform: development/platform.md
+    - Python library: development/python.md
+    - Connectors: development/connectors.md
+    - Playground: development/api-usage.md

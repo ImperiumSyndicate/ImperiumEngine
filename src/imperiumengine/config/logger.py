@@ -27,33 +27,21 @@ except ImportError:
 
 class ColoredFormatter(logging.Formatter):
     """
-    Formatter que adiciona cores às mensagens de log de acordo com o nível.
-
-    Essa classe estende `logging.Formatter` e aplica códigos de cor ANSI às mensagens
-    de log com base no nível de severidade (DEBUG, INFO, WARNING, ERROR, CRITICAL).
+    Formatter que adiciona cores às mensagens de log de acordo com o nível,
+    se a opção `use_color` estiver ativada.
 
     Attributes
     ----------
     LEVEL_COLOR : dict[int, str]
-        Dicionário que mapeia níveis de log (como `logging.DEBUG`) para seus respectivos
-        códigos de cor ANSI do Colorama.
+        Dicionário que mapeia níveis de log para os códigos de cor ANSI do Colorama.
+    use_color : bool
+        Indica se a formatação com cores deve ser aplicada.
 
     Methods
     -------
     format(record: logging.LogRecord) -> str
-        Formata o registro de log, aplicando a cor definida para o nível do registro.
-
-    Examples
-    --------
-    >>> import logging
-    >>> from colorama import init, Fore, Style
-    >>> init(autoreset=True)
-    >>> formatter = ColoredFormatter("%(levelname)s: %(message)s")
-    >>> record = logging.LogRecord("test", logging.INFO, "", 0, "Teste de log", None, None)
-    >>> formatted = formatter.format(record)
-    >>> # Verifica se a string contém o código de cor associado ao INFO
-    >>> Fore.GREEN in formatted or Style.RESET_ALL in formatted
-    True
+        Formata o registro de log aplicando a cor definida para o nível do registro
+        se `use_color` for True.
     """
 
     LEVEL_COLOR: dict[int, str] = {
@@ -64,23 +52,40 @@ class ColoredFormatter(logging.Formatter):
         logging.CRITICAL: Fore.RED + Style.BRIGHT,
     }
 
+    def __init__(self, fmt: str = None, datefmt: str = None, use_color: bool = True):
+        """
+        Inicializa o formatter.
+
+        Parameters
+        ----------
+        fmt : str, optional
+            Formato da mensagem de log.
+        datefmt : str, optional
+            Formato da data/hora.
+        use_color : bool, optional
+            Indica se o formatter deve aplicar cores à mensagem. O padrão é True.
+        """
+        super().__init__(fmt, datefmt)
+        self.use_color = use_color
+
     def format(self, record: logging.LogRecord) -> str:
         """
-        Formata o registro de log aplicando a cor correspondente ao seu nível.
+        Formata o registro de log aplicando a cor correspondente, caso `use_color` seja True.
 
         Parameters
         ----------
         record : logging.LogRecord
-            Registro de log que contém os dados da mensagem e seu nível de severidade.
+            Registro de log contendo as informações da mensagem e seu nível.
 
         Returns
         -------
         str
-            A mensagem formatada com os códigos de cor ANSI aplicados.
+            Mensagem formatada (colorida se `use_color` for True, ou bruta caso contrário).
         """
-        color: str = self.LEVEL_COLOR.get(record.levelno, "")
-        # Aplica a cor ao texto da mensagem
-        record.msg = f"{color}{record.msg}{Style.RESET_ALL}"
+        if self.use_color:
+            color: str = self.LEVEL_COLOR.get(record.levelno, "")
+            # Aplica a cor à mensagem e reseta o estilo ao final
+            record.msg = f"{color}{record.msg}{Style.RESET_ALL}"
         return super().format(record)
 
 
@@ -88,20 +93,19 @@ class LogFactory:
     """
     Fábrica centralizada para criação e configuração dos loggers.
 
-    Essa classe gerencia a configuração global dos logs utilizando as seguintes integrações:
-      - **Sentry:** Para monitoramento de erros e performance.
-      - **Graylog:** Para centralização de logs via UDP.
-      - **Fallback Local:** Caso nenhuma das integrações esteja configurada, os logs são
-        gravados em arquivos locais em diretórios temporários.
+    Esta classe gerencia a configuração global dos logs, integrando:
+      - **Sentry:** Monitoramento de erros e performance.
+      - **Graylog:** Centralização de logs via UDP.
+      - **Fallback Local:** Gravação de logs em arquivos locais (em diretórios temporários)
+        caso as integrações acima não estejam configuradas.
 
-    A configuração é obtida a partir de uma instância externa da classe
-    `ImperiumengineConfig` (gerenciada via TOML). Se a instância não estiver disponível,
-    é utilizado um fallback para gravação local.
+    A configuração é, preferencialmente, obtida a partir de uma instância externa da classe
+    `ImperiumengineConfig`. Se esta não estiver disponível, utiliza-se o fallback local.
 
     Attributes
     ----------
     _loggers : dict[str, logging.Logger]
-        Dicionário que armazena os loggers criados, mapeando o nome para a instância do logger.
+        Dicionário que mapeia nomes de loggers para suas respectivas instâncias.
     _configured : bool
         Flag que indica se o logger raiz já foi configurado.
 
@@ -111,12 +115,6 @@ class LogFactory:
         Configura o logger raiz com os handlers e integrações apropriadas.
     get_logger(name: str) -> logging.Logger
         Retorna uma instância de logger com o nome especificado.
-
-    Examples
-    --------
-    >>> # Exemplo de obtenção e uso de um logger (exemplo ignorado no doctest)
-    >>> logger = LogFactory.get_logger("MeuLogger")  # doctest: +SKIP
-    >>> logger.info("Log de informação")  # doctest: +SKIP
     """
 
     _loggers: dict[str, logging.Logger] = {}
@@ -127,23 +125,16 @@ class LogFactory:
         """
         Configura o logger raiz com handlers e integrações (Sentry, Graylog ou fallback local).
 
-        Este método tenta obter uma instância da configuração via `ImperiumengineConfig`. Se essa
-        instância estiver disponível, utiliza as configurações definidas para Sentry e Graylog.
-        Caso contrário, é utilizado um fallback que grava logs e tracking em arquivos locais
-        dentro de um diretório temporário.
+        O método tenta obter uma instância de configuração via `ImperiumengineConfig`.
+        Se disponível, utiliza as configurações definidas para Sentry e Graylog. Caso contrário,
+        aplica um fallback que grava os logs em arquivos locais (em diretórios temporários).
 
-        Adicionalmente, é sempre adicionado um `StreamHandler` para exibir os logs no terminal
+        Adicionalmente, um `StreamHandler` é sempre adicionado para exibir os logs no terminal
         com formatação colorida.
 
         Returns
         -------
         None
-
-        Examples
-        --------
-        >>> # Reset para garantir que a configuração seja aplicada
-        >>> LogFactory._configured = False
-        >>> LogFactory.configure()
         """
         if cls._configured:
             return
@@ -152,7 +143,7 @@ class LogFactory:
         use_sentry: bool = False
         use_graylog: bool = False
 
-        # Tenta obter a instância da classe Config (que utiliza TOML)
+        # Tenta obter a instância de configuração via ImperiumengineConfig
         try:
             from imperiumengine.config.imperiumengine_settings import ImperiumengineConfig
 
@@ -169,14 +160,14 @@ class LogFactory:
                 environment: str = config_instance.get("sentry.environment", "production")
                 if HAS_SENTRY:
                     sentry_logging = LoggingIntegration(
-                        level=logging.INFO,  # Captura breadcrumbs a partir do INFO
+                        level=logging.INFO,  # Captura breadcrumbs a partir do nível INFO
                         event_level=logging.ERROR,  # Erros são enviados como eventos para o Sentry
                     )
                     sentry_sdk.init(
                         dsn=dsn,
                         integrations=[sentry_logging],
                         environment=environment,
-                        traces_sample_rate=1.0,  # Habilita o tracing (monitoramento de performance)
+                        traces_sample_rate=1.0,  # Habilita o tracing para monitoramento de performance
                     )
                     root_logger.info("Sentry configurado com sucesso (via TOML).")
                 else:
@@ -194,6 +185,11 @@ class LogFactory:
                 if HAS_PYGELF:
                     graylog_handler = GelfUdpHandler(host=host, port=int(port))
                     graylog_handler.setLevel(logging.DEBUG)
+                    # Utiliza um formatter sem cores para Graylog (formatação bruta)
+                    plain_formatter = logging.Formatter(
+                        "%(asctime)s [%(levelname)s] %(message)s", datefmt="%Y-%m-%d %H:%M:%S"
+                    )
+                    graylog_handler.setFormatter(plain_formatter)
                     root_logger.addHandler(graylog_handler)
                     root_logger.info("Graylog configurado com sucesso (via TOML).")
                 else:
@@ -216,15 +212,17 @@ class LogFactory:
             log_file: Path = log_dir / "app.log"
             tracking_file: Path = tracking_dir / "tracking.log"
 
-            # Handler para logs gerais com formatação colorida
+            # Handler para logs gerais com formatação colorida (exibe no terminal ou arquivo)
             file_handler = logging.FileHandler(str(log_file))
             file_formatter = ColoredFormatter(
-                "%(asctime)s [%(levelname)s] %(message)s", datefmt="%Y-%m-%d %H:%M:%S"
+                "%(asctime)s [%(levelname)s] %(message)s",
+                datefmt="%Y-%m-%d %H:%M:%S",
+                use_color=False,  # Fallback: logs enviados para arquivo sem cores
             )
             file_handler.setFormatter(file_formatter)
             root_logger.addHandler(file_handler)
 
-            # Handler para tracking com formatação JSON-like
+            # Handler para tracking com formatação em estilo JSON-like (sem cores)
             tracking_handler = logging.FileHandler(str(tracking_file))
             tracking_formatter = logging.Formatter(
                 '{"time": "%(asctime)s", "level": "%(levelname)s", "message": "%(message)s"}',
@@ -239,10 +237,14 @@ class LogFactory:
                 tracking_dir,
             )
 
-        # --- Adiciona um StreamHandler para exibir os logs no terminal ---
+        # --- Adiciona um StreamHandler para exibir os logs no terminal com cores ---
         stream_handler = logging.StreamHandler()
         stream_handler.setFormatter(
-            ColoredFormatter("%(asctime)s [%(levelname)s] %(message)s", datefmt="%Y-%m-%d %H:%M:%S")
+            ColoredFormatter(
+                "%(asctime)s [%(levelname)s] %(message)s",
+                datefmt="%Y-%m-%d %H:%M:%S",
+                use_color=True,
+            )
         )
         root_logger.addHandler(stream_handler)
         root_logger.setLevel(logging.DEBUG)
@@ -253,8 +255,8 @@ class LogFactory:
         """
         Retorna um logger com o nome especificado, garantindo que a configuração global seja aplicada.
 
-        Se o logger com o nome fornecido ainda não foi criado, este método o cria, armazena na
-        fábrica e retorna a instância correspondente.
+        Se o logger com o nome fornecido ainda não foi criado, este método o cria,
+        armazena na fábrica e retorna a instância correspondente.
 
         Parameters
         ----------

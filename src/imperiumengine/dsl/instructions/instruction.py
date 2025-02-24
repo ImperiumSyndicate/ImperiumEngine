@@ -11,7 +11,6 @@ class Instruction(ABC):
     deve fornecer sua própria implementação do método `execute(context)`, que contém a lógica
     para executar a instrução utilizando o contexto fornecido.
 
-
     Methods
     -------
     execute(context: Context) -> None
@@ -19,18 +18,16 @@ class Instruction(ABC):
 
     Examples
     --------
-    A seguir, um exemplo de como criar uma subclasse de `Instruction` e implementar o método
-    `execute`:
-
     >>> from imperiumengine.dsl.context import Context
     >>> class DummyInstruction(Instruction):
     ...     def execute(self, context: Context) -> None:
     ...         # Supondo que o objeto Context possua um atributo 'variables' do tipo dict.
     ...         context.variables["dummy"] = "executado"
-    >>> # Criação de um contexto dummy com um atributo 'variables'
+    >>>
     >>> class DummyContext(Context):
     ...     def __init__(self):
     ...         self.variables = {}
+    >>>
     >>> contexto = DummyContext()
     >>> instrucao = DummyInstruction()
     >>> instrucao.execute(contexto)
@@ -57,3 +54,4 @@ class Instruction(ABC):
         NotImplementedError
             Se a subclasse não implementar este método.
         """
+        raise NotImplementedError("Subclasses devem implementar o método execute(context)")

@@ -50,7 +50,6 @@ class DSLParser:
 
     >>> instructions = [{"operation": "x = 1"}]
     >>> compound = DSLParser.parse(instructions)
-    >>> # Verifica se a primeira instrução analisada é do tipo OperationInstruction
     >>> compound.instructions[0].__class__.__name__
     'OperationInstruction'
     """
@@ -119,7 +118,6 @@ class DSLParser:
         instructions: list[dict[str, Any]], start: int, *, stop_at_end: bool = False
     ) -> tuple[CompoundInstruction, int]:
         """
-
         Processa recursivamente um bloco de instruções a partir de um índice inicial.
 
         Este método percorre a lista de instruções iniciando em 'start' e analisa cada instrução.

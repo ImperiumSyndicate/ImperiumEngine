@@ -15,9 +15,9 @@ class TradeInstruction(Instruction):
     ----------
     trade_data : dict
         Dicionário contendo os dados do trade. Geralmente, espera-se que contenha chaves como:
-        - "action": A ação do trade (por exemplo, "buy" ou "sell").
-        - "symbol": O símbolo do ativo (por exemplo, "AAPL").
-        - "quantity": A quantidade a ser negociada.
+          - "action": A ação do trade (por exemplo, "buy" ou "sell").
+          - "symbol": O símbolo do ativo (por exemplo, "AAPL").
+          - "quantity": A quantidade a ser negociada.
 
     Attributes
     ----------
@@ -65,7 +65,6 @@ class TradeInstruction(Instruction):
 
     def execute(self, context: Context) -> None:
         """
-
         Executa a instrução de trade, registrando os dados no contexto.
 
         O método adiciona os dados do trade à lista associada à chave "trades" no dicionário
@@ -86,7 +85,6 @@ class TradeInstruction(Instruction):
         try:
             trades = context.variables.setdefault("trades", [])
             trades.append(self.trade_data)
-
             self.logger.info("Trade successfully executed: %s", self.trade_data)
 
         except Exception as e:

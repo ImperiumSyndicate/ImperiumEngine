@@ -50,6 +50,7 @@ class IfInstruction(Instruction):
     >>> class DummyInstruction(Instruction):
     ...     def execute(self, context):
     ...         context.variables["counter"] = context.variables.get("counter", 0) + 1
+    >>>
     >>> # Criação de um bloco composto com a instrução dummy
     >>> block = CompoundInstruction([DummyInstruction()])
     >>>
@@ -72,6 +73,16 @@ class IfInstruction(Instruction):
     """
 
     def __init__(self, condition: str, block: CompoundInstruction) -> None:
+        """
+        Inicializa a instrução condicional com a expressão e o bloco de instruções.
+
+        Parameters
+        ----------
+        condition : str
+            Expressão condicional que será avaliada para determinar se o bloco será executado.
+        block : CompoundInstruction
+            Bloco de instruções que será executado caso a condição seja avaliada como verdadeira.
+        """
         self.condition = condition
         self.block = block
 
@@ -79,15 +90,19 @@ class IfInstruction(Instruction):
         """
         Avalia a condição e executa o bloco de instruções se a condição for verdadeira.
 
-        A avaliação da condição é realizada utilizando a função `safe_eval_expr`, que avalia a expressão
-        definida em `condition` com base nas variáveis presentes no objeto `context`. Caso o resultado
-        seja avaliado como verdadeiro, o método `execute` do bloco de instruções é invocado.
+        A avaliação da condição é realizada utilizando a função `safe_eval_expr`, que processa a
+        expressão definida em `condition` com base nas variáveis presentes no objeto `context`. Se o
+        resultado for avaliado como verdadeiro, o método `execute` do bloco de instruções é chamado.
 
         Parameters
         ----------
         context : Context
             Objeto que contém as variáveis e o estado necessário para a avaliação da condição e execução
             do bloco de instruções.
+
+        Returns
+        -------
+        None
         """
         result = safe_eval_expr(self.condition, context.variables)
         if result:

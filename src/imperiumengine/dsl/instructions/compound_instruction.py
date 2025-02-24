@@ -10,7 +10,6 @@ class CompoundInstruction(Instruction):
     contexto. Cada instrução deve ser uma instância de uma classe derivada de `Instruction` e deve
     implementar o método `execute(context)`.
 
-
     Parameters
     ----------
     instructions : list of Instruction
@@ -28,28 +27,20 @@ class CompoundInstruction(Instruction):
 
     Examples
     --------
-    Para exemplificar o uso desta classe, considere o seguinte cenário em que definimos uma classe
-    dummy derivada de `Instruction` que acumula valores em um contexto. Note que, neste exemplo,
-    o objeto `Context` é utilizado via atributos e não como um dicionário:
-
     >>> from imperiumengine.dsl.context import Context
     >>> class DummyInstruction(Instruction):
     ...     def __init__(self, valor):
     ...         self.valor = valor
     ...
     ...     def execute(self, context):
-    ...         # Se o atributo 'resultado' não existir no contexto, inicializa-o com 0
+    ...         # Inicializa o atributo 'resultado' se não existir e acumula o valor
     ...         if not hasattr(context, "resultado"):
     ...             context.resultado = 0
     ...         context.resultado += self.valor
-    >>> # Criação de um contexto válido (instância de Context)
     >>> contexto = Context()
-    >>> # Criação de duas instruções dummy
     >>> instrucao1 = DummyInstruction(10)
     >>> instrucao2 = DummyInstruction(5)
-    >>> # Criação da instrução composta com as duas instruções dummy
     >>> instrucao_composta = CompoundInstruction([instrucao1, instrucao2])
-    >>> # Execução da instrução composta
     >>> instrucao_composta.execute(contexto)
     >>> contexto.resultado
     15
@@ -79,6 +70,10 @@ class CompoundInstruction(Instruction):
         context : Context
             Objeto que representa o contexto de execução, contendo os dados ou estado necessário para
             a execução das instruções.
+
+        Returns
+        -------
+        None
         """
         for instr in self.instructions:
             instr.execute(context)
